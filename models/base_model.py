@@ -1,27 +1,26 @@
 #!/usr/bin/python3
 """This is the base model class for AirBnB"""
-from sqlalchemy.ext.declarative import declarative_base
 import uuid
 import models
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
-
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
 class BaseModel:
-    """This class will defines all common attributes/methods
+    """This class will define all common attributes/methods
     for other classes
     """
+
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=(datetime.utcnow()))
-    updated_at = Column(DateTime, nullable=False, default=(datetime.utcnow()))
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
         Args:
-            args: it won't be used
             kwargs: arguments for the constructor of the BaseModel
         Attributes:
             id: unique id generated
@@ -34,12 +33,6 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
-            if "id" not in kwargs:
-                self.id = str(uuid.uuid4())
-            if "created_at" not in kwargs:
-                self.created_at = datetime.now()
-            if "updated_at" not in kwargs:
-                self.updated_at = datetime.now()
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
@@ -49,8 +42,10 @@ class BaseModel:
         Return:
             returns a string of class name, id, and dictionary
         """
+        dict_cpy = self.__dict__.copy()
+        del dict_cpy['_sa_instance_state']
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__)
+            type(self).__name__, self.id, dict_cpy)
 
     def __repr__(self):
         """return a string representaion
@@ -78,6 +73,5 @@ class BaseModel:
         return my_dict
 
     def delete(self):
-        """ delete object
-        """
+        """Delete the current instance from the storage models.storage"""
         models.storage.delete(self)
