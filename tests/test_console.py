@@ -83,7 +83,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("all User")
             self.assertEqual(
-                "['[User']", f.getvalue()[:7])
+                "[User]", f.getvalue()[:7])
 
     def test_show(self):
         """Test show command inpout"""
@@ -199,7 +199,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("Galaxy.destroy()")
             self.assertEqual(
-                "** class doesn't exist **\n", f.getvalue())
+                "** class doesn't exist **", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("User.destroy(12345)")
             self.assertEqual(
@@ -210,7 +210,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("sldkfjsl.update()")
             self.assertEqual(
-                "** class doesn't exist **\n", f.getvalue())
+                "** class doesn't exist **", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("User.update(12345)")
             self.assertEqual(

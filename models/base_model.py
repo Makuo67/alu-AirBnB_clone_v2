@@ -35,18 +35,21 @@ class BaseModel:
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
-        """returns a string
-        Return:
-            returns a string of class name, id, and dictionary
-        """
-        dict_cpy = self.__dict__.copy()
-        del dict_cpy['_sa_instance_state']
-        return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, dict_cpy)
+        """Return a string representation of the object.
 
+        Returns:
+            str: A string in the format "[<class name>] (<id>) {<attribute1>: <value1>, <attribute2>: <value2>, ...}".
+        """
+        class_name = type(self).__name__
+        object_id = getattr(self, "id", None)
+        attributes = [
+            f"{k}: {v}" for k, v in self.__dict__.items() if k != "_sa_instance_state"
+        ]
+        return f"[{class_name}] ({object_id}) {{{', '.join(attributes)}}}"
     def __repr__(self):
         """return a string representaion
         """

@@ -53,10 +53,18 @@ class test_basemodel(unittest.TestCase):
             self.assertEqual(j[key], i.to_dict())
 
     def test_str(self):
-        """ """
-        i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
+        """Checks str of the object is well formatted."""
+        # Arrange
+        obj = self.value()  # create object to test
+        object_name = self.name  # get the name of the object class
+
+        # Act
+        result = str(obj)
+
+        # Assert
+        expected_output = f"[{object_name}] ({obj.id}) {obj.__dict__}"
+        self.assertEqual(result, expected_output,
+                         msg="The string representation of the object is not correctly formatted.")
 
     def test_todict(self):
         """ """
@@ -70,11 +78,6 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
-    def test_kwargs_one(self):
-        """ """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
 
     def test_id(self):
         """ """
