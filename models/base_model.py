@@ -48,7 +48,8 @@ class BaseModel:
         class_name = type(self).__name__
         object_id = getattr(self, "id", None)
         attributes = [
-            f"{k}: {v}" for k, v in self.__dict__.items() if k != "_sa_instance_state"
+            f"{k}: {v}"
+            for k, v in self.__dict__.items() if k != "_sa_instance_state"
         ]
         return f"[{class_name}] ({object_id}) {{{', '.join(attributes)}}}"
 
