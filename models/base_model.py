@@ -42,7 +42,8 @@ class BaseModel:
         """Return a string representation of the object.
 
         Returns:
-            str: A string in the format "[<class name>] (<id>) {<attribute1>: <value1>, <attribute2>: <value2>, ...}".
+            str: A string in the format "[<class name>] (<id>)
+             {<attribute1>: <value1>, <attribute2>: <value2>, ...}".
         """
         class_name = type(self).__name__
         object_id = getattr(self, "id", None)
@@ -50,6 +51,7 @@ class BaseModel:
             f"{k}: {v}" for k, v in self.__dict__.items() if k != "_sa_instance_state"
         ]
         return f"[{class_name}] ({object_id}) {{{', '.join(attributes)}}}"
+
     def __repr__(self):
         """return a string representaion
         """
