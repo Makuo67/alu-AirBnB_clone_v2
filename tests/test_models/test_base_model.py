@@ -16,12 +16,12 @@ class TestBaseModel(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
-
-    def setUp(self):
-        """ """
         base = BaseModel()
         base.name = "Kev"
         base.num = 20
+
+    def setUp(self):
+        """ """
 
     def tearDown(self):
         try:
