@@ -83,11 +83,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("all User")
             self.assertEqual(
-<<<<<<< HEAD
                 "[User", f.getvalue()[:7])
-=======
-                "[/[User]", f.getvalue()[:7])
->>>>>>> parent of be78507... :robot: automated commit of one or many files
 
     def test_show(self):
         """Test show command inpout"""
