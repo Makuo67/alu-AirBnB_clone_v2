@@ -70,7 +70,7 @@ class BaseModel:
         dictionary = {}
         dictionary.update(self.__dict__)
         if '_sa_instance_state' in dictionary:
-            del dictionary['_sa_instance_state']
+            pass
 
         dictionary.update({'__class__': self.__class__.__name__})
         dictionary['created_at'] = self.created_at.isoformat()
