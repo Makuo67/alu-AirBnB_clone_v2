@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """ """
-from time import sleep
-
 from models.base_model import BaseModel
 import unittest
 import datetime
@@ -54,7 +52,6 @@ class TestBaseModel(unittest.TestCase):
         from models import storage
         model = BaseModel()
         created_at = model.created_at
-        sleep(2)
         updated_at = model.updated_at
         self.assertNotEqual(updated_at, model.updated_at)
         self.assertEqual(created_at, model.created_at)
