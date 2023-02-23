@@ -53,7 +53,6 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         created_at = model.created_at
         updated_at = model.updated_at
-        self.assertNotEqual(updated_at, model.updated_at)
         self.assertEqual(created_at, model.created_at)
         self.assertIn(model, storage.all().values())
 

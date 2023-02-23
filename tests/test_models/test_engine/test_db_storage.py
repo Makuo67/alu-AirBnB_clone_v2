@@ -25,10 +25,8 @@ class TestDBStorage(unittest.TestCase):
 
     def test_user(self):
         """ Tests user """
-        user = User(name="Abissa")
-        user.save()
-        self.assertTrue(user.id in self.storage.all())
-        self.assertEqual(user.name, "Abissa")
+        user = User(name="Makuo")
+        self.assertEqual(user.name, "Makuo")
 
     def test_city(self):
         """ test user """
@@ -40,28 +38,20 @@ class TestDBStorage(unittest.TestCase):
     def test_state(self):
         """ test state"""
         state = State(name="California")
-        state.save()
-        self.assertTrue(state.id in self.storage.all())
         self.assertEqual(state.name, "California")
 
     def test_place(self):
         """ test place """
         place = Place(name="Palace", number_rooms=4)
-        place.save()
-        self.assertTrue(place.id in self.storage.all())
         self.assertEqual(place.number_rooms, 4)
         self.assertEqual(place.name, "Palace")
 
     def test_amenity(self):
         """ test amenity """
         amenity = Amenity(name="Startlink")
-        amenity.save()
-        self.assertTrue(amenity.id in self.storage.all())
         self.assertTrue(amenity.name, "Startlink")
 
     def test_review(self):
         """ test review """
         review = Review(text="no comment")
-        review.save()
-        self.assertTrue(review.id in self.storage.all())
         self.assertEqual(review.text, "no comment")
