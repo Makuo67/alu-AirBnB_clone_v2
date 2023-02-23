@@ -50,13 +50,13 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         """ Testing save """
         from models import storage
-        model = BaseModel()
-        created_at = model.created_at
-        updated_at = model.updated_at
-        model.save()
-        self.assertNotEqual(updated_at, model.updated_at)
-        self.assertEqual(created_at, model.created_at)
-        self.assertIn(model, storage.all().values())
+        self.model = BaseModel()
+        created_at = self.model.created_at
+        updated_at = self.model.updated_at
+        self.model.save()
+        self.assertNotEqual(updated_at, self.model.updated_at)
+        self.assertEqual(created_at, self.model.created_at)
+        self.assertIn(self.model, storage.all().values())
 
     def test_str(self):
         """ """
