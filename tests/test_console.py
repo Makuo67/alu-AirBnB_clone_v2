@@ -22,14 +22,15 @@ class ConsoleTestCase(unittest.TestCase):
         del self.storage
         self.cli = None
 
-    def test_create(self):
-        """test create basic"""
-        with patch('sys.stdout', self.stdout):
-            self.console.onecmd('create State')
-        state_id = self.stdout.getvalue()[:-1]
-        # print(state_id)
-        # print(len(state_id))
-        self.assertTrue(len(state_id) == 36)
+    def test_do_create_no_args(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cli.do_create("")
+            self.assertEqual(f.getvalue().strip(), "** class name missing **")
+
+    def test_do_create_invalid_class(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cli.do_create("MyClass")
+            self.assertEqual(f.getvalue().strip(), "** class doesn't exist **")
 
     def test_do_create_valid_class(self):
         with patch('models.storage.new') as new_mock, \
@@ -39,14 +40,8 @@ class ConsoleTestCase(unittest.TestCase):
             new_mock.assert_called_once()
             save_mock.assert_called_once()
             output = f.getvalue().strip()
-            self.assertRegex(output, "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-
-    def test_create_non_existing_class(self):
-        """test non-existing class"""
-        with patch('sys.stdout', self.stdout):
-            self.console.onecmd('create MyModel')
-        self.assertEqual("** class doesn't exist **\n",
-                         self.stdout.getvalue())
+            ok = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+            self.assertRegex(output, ok)
 
     def test_all(self):
         """test all"""
