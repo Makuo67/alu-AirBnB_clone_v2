@@ -40,7 +40,7 @@ class ConsoleTestCase(unittest.TestCase):
             new_mock.assert_called_once()
             save_mock.assert_called_once()
             output = f.getvalue().strip()
-            o = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+            o = '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$'
             self.assertRegex(output, o)
 
     def test_all(self):
