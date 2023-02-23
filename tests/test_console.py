@@ -15,10 +15,12 @@ class ConsoleTestCase(unittest.TestCase):
         self.console = HBNBCommand()
         self.stdout = StringIO()
         self.storage = models.storage
+        self.cli = HBNBCommand()
 
     def tearDown(self):
         del self.stdout
         del self.storage
+        self.cli = None
 
     def test_create(self):
         """test create basic"""
@@ -29,13 +31,15 @@ class ConsoleTestCase(unittest.TestCase):
         # print(len(state_id))
         self.assertTrue(len(state_id) == 36)
 
-    def test_create_save(self):
-        """test create save"""
-        with patch('sys.stdout', self.stdout):
-            self.console.onecmd('create State name="California')
-        state_id = self.stdout.getvalue()[:-1]
-        self.assertIsNotNone(
-            self.storage.all()["State.{}".format(state_id)])
+    def test_do_create_valid_class(self):
+        with patch('models.storage.new') as new_mock, \
+                patch('models.storage.save') as save_mock, \
+                patch('sys.stdout', new=StringIO()) as f:
+            self.cli.do_create("BaseModel")
+            new_mock.assert_called_once()
+            save_mock.assert_called_once()
+            output = f.getvalue().strip()
+            self.assertRegex(output, "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
     def test_create_non_existing_class(self):
         """test non-existing class"""
