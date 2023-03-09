@@ -10,7 +10,7 @@ from fabric.api import local
 def do_pack():
     """Return the archive path when correctly generated"""
     try:
-        if not oss.path.exists("versions"):
+        if not os.path.exists("versions"):
             local('mkdir versions')
         t = datetime.now()
         f = "%Y%m%d%H%M%S"
