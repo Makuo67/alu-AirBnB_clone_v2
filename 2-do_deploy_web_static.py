@@ -8,21 +8,9 @@ from fabric.api import env, put, run
 from datetime import datetime
 
 
-env.hosts = ['3.85.27.25', '107.20.35.226']
+env.hosts = ['54.173.201.66', '54.221.144.230']
 env.user = 'ubuntu'
 
-def do_pack():
-    """Return the archive path when correctly generated"""
-    try:
-        if not os.path.exists("versions"):
-            local('mkdir versions')
-        t = datetime.now()
-        f = "%Y%m%d%H%M%S"
-        archive_path = 'versions/web_static_{}.tgz'.format(t.strftime(f))
-        local('tar -cvzf {} web_static'.format(archive_path))
-        return archive_path
-    except:
-        return None
 
 def do_deploy(archive_path):
     """Distributes an archive to your web servers"""
