@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Fabric script that generates a .tgz archive 
+"""Fabric script that generates a .tgz archive
 from the contents of the web_static folder of my AirBnB clone repo
 """
 import os
@@ -19,4 +19,3 @@ def do_pack():
         return archive_path
     except:
         return None
-
