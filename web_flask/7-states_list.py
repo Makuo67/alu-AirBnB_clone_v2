@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" Script that starts with Flask framework """
+"""
+Script that starts with Flask framework
+"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
