@@ -95,3 +95,7 @@ class DBStorage:
                                        expire_on_commit=False)
         session = scoped_session(session_factory)
         self.__session = session()
+
+    def close(self):
+        """call remove method"""
+        self.__session.close()
