@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-Script that starts with Flask framework
+This script starts a Flask web application that displays a list of states.
 """
+
 from flask import Flask, render_template
 from models import storage
 from models.state import State
