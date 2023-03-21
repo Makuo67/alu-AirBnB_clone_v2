@@ -1,5 +1,7 @@
 #!/usr/bin/python3
+
 """Starts a Flask web application"""
+
 from models import storage
 from models.state import State
 from flask import Flask
@@ -10,8 +12,7 @@ app = Flask(__name__)
 
 @app.route('/states_list', strict_slashes=False)
 def states():
-    """Comment
-    What else does this wants"""
+    """Comment"""
     return render_template('7-states_list.html',
                            states=storage.all('State').values())
 
