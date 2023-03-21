@@ -97,6 +97,6 @@ class DBStorage:
         self.__session = session()
 
     def close(self):
-        """call remove method"""
-        self.__session.remove()
+        """Close the current session"""
+        self.__session.close()
         self.__session = None
