@@ -67,4 +67,3 @@ class FileStorage:
     def close(self):
         """Call reload before deserializing JSON file """
         self.reload()
-    
