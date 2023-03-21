@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+This script starts a Flask web application that displays a list of states.
+Web application must be listening on 0.0.0.0, port 5000
+Used storage for fetching data from the storage engine 
+"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
