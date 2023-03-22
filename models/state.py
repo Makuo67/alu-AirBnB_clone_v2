@@ -12,7 +12,7 @@ storage = getenv("HBNB_TYPE_STORAGE")
 
 class State(BaseModel, Base):
     """ State class """
-    _tablename_ = "states"
+    __tablename__ = "states"
     if storage == 'db':
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref='states')
