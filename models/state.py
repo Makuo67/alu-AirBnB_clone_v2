@@ -1,37 +1,32 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-import os
-
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-from models.city import City
 import models
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String
+from models.city import City
+from os import getenv
+
+storage = getenv("HBNB_TYPE_STORAGE")
 
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = 'states'
-
-    name = Column(String(128), nullable=False)
-
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        cities = relationship('City', backref='state',
-                              cascade='all, delete-orphan')
-
+    _tablename_ = "states"
+    if storage == 'db':
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", backref='states')
     else:
-        # if os.getenv("HBNB_TYPE_STORAGE") != "db":
-        # @property
-        # def cities(self):
-        #     """ Returns the list of City instances with state_id
-        #     equals to the current State.id. """
-        #     all_cities = list(models.storage.all(City).values())
-        #     return list(filter(lambda city: (city.id == self.id),
-        #     all_cities))
-        # no time to fix
+        name = ""
+    if storage != 'db':
         @property
         def cities(self):
-            """ Returns the list of City instances with state_id
-            equals to the current State.id. """
-            return [city for city in models.storage.all(City).values()
-                    if city.state_id == self.id]
+            """
+            return list of cities
+            """
+            list_cities = []
+            cities = models.storage.all(City)
+            for key, city_obj in cities.items():
+                if city_obj.state_id == self.id:
+                    list_cities.append(city_obj)
+            return list_cities
