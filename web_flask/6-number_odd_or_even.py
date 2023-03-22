@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Script that starts Flask framework """
 from flask import Flask, render_template
+from models import storage
 
 
 app = Flask(__name__)
@@ -49,6 +50,7 @@ def number_template(n):
 def number_odd_or_even(n):
     """ Function called with /number_template/<n> route """
     return render_template('6-number_odd_or_even.html', number=n)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
